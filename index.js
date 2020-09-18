@@ -28,10 +28,13 @@ io.on('connection', (socket) => {
     users.push(userName)
 
     socket.emit('userInitialized', userName)
+    io.emit('usersChanged', users)
   })
 
   socket.on('disconnect', () => {
     users = users.filter((item) => item !== socket.username)
+
+    io.emit('usersChanged', users)
   })
 
   socket.on('newMessage', (msg) => {
