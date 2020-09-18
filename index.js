@@ -1,20 +1,10 @@
-// const cors = require('cors')
 const app = require('express')()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 
 let users = ['bot']
 
-// app.use(cors()) // can be not need
-
-// app.get('/', (req, res) => {
-//   console.log(req.query.userName)
-//   res.send('Hello World!')
-// })
-
 io.on('connection', (socket) => {
-  // console.log('a user connected', socket.handshake.query.userName)
-
   socket.on('initUser', (userName) => {
     if (socket.username === userName) {
       return socket.emit('userInitialized', userName)

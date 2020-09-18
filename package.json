@@ -9,7 +9,6 @@
   "author": "Sasha Russu <russusasha19@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
-    "cors": "^2.8.5",
     "express": "^4.15.2",
     "socket.io": "^2.3.0"
   }
