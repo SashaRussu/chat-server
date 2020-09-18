@@ -1,11 +1,11 @@
-const cors = require('cors')
+// const cors = require('cors')
 const app = require('express')()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 
-let users = []
+let users = ['bot']
 
-app.use(cors()) // can be not need
+// app.use(cors()) // can be not need
 
 // app.get('/', (req, res) => {
 //   console.log(req.query.userName)
@@ -16,7 +16,7 @@ io.on('connection', (socket) => {
   // console.log('a user connected', socket.handshake.query.userName)
 
   socket.on('initUser', (userName) => {
-    if (socket.userName === userName) {
+    if (socket.username === userName) {
       return socket.emit('userInitialized', userName)
     }
 
@@ -24,17 +24,17 @@ io.on('connection', (socket) => {
       return socket.emit('nameIsBusy')
     }
 
-    socket.userName = userName
+    socket.username = userName
     users.push(userName)
 
     socket.emit('userInitialized', userName)
   })
 
   socket.on('disconnect', () => {
-    users = users.filter((item) => item !== socket.userName)
+    users = users.filter((item) => item !== socket.username)
   })
 
-  socket.on('newMessage', (msg) => {console.log(msg)
+  socket.on('newMessage', (msg) => {
     io.emit('newMessage', msg)
   })
 })
